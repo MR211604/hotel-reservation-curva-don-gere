@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoomStatus {
+  AVAILABLE
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  CHECKED_IN
+  CHECKED_OUT
+  NO_SHOW
+}
+
+//Un usuario solo puede hacer una reservacion
+model User {
+  id              Int           @id @default(autoincrement())
+  username        String
+  email           String
+  hashed_password String
+  photoUrl        String?
+  reservations    Reservation[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+//Una habitacion puede tener diversas reservaciones 
+model Room {
+  id          Int           @id @default(autoincrement())
+  number      Int
+  occupancy   Int
+  photoUrl    String?
+  description String?
+  price       Float
+  state       Boolean
+  date        DateTime
+  reservation Reservation[]
+}
+
+model Reservation {
+  id          Int               @id @default(autoincrement())
+  code        Int
+  checkIn     DateTime
+  checkOut    DateTime
+  description String
+  state       ReservationStatus @default(PENDING)
+  guests      Int               @default(1)
+
+  roomId Int
+  userId Int
+
+  user      User     @relation(fields: [userId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
