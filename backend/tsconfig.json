@@ -13,8 +13,5 @@
     "useUnknownInCatchVariables": false,
     "inlineSourceMap": true
   },
-  "ts-node": {
-    "esm": true
-  },
   "lib": ["esnext"]
 }
