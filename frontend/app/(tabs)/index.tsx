@@ -8,7 +8,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-
+import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
 export default function HomeScreen() {
   const [search, setSearch] = useState<string | undefined>("");
 
@@ -20,7 +20,11 @@ export default function HomeScreen() {
         marginTop: StatusBar.currentHeight,
       }}
     >
-      <View style={styles.headerContainer}>
+      <Animated.View
+        style={styles.headerContainer}
+        entering={FadeInDown}
+        exiting={FadeInUp}
+      >
         <View style={styles.actionRow}>
           <TextInput
             style={styles.input}
@@ -38,7 +42,7 @@ export default function HomeScreen() {
         <View style={{ marginBottom: 70 }}>
           <RoomListing />
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }
@@ -46,6 +50,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   headerContainer: {
     backgroundColor: "#fff",
+    fontFamily: "mon",
     height: "auto",
     marginTop: 20,
   },

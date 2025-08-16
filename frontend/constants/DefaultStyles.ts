@@ -14,13 +14,14 @@ export const defaultStyles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   btn: {
-    height: 50,
+    height: 40,
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
   },
   btnText: {
     color: "#fff",
+    fontFamily: "mon",
     fontSize: 16,
   },
   btnIcon: {

@@ -28,7 +28,12 @@ export default function RoomListing() {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            <Text
+              style={{
+                fontFamily: "mon-b",
+                fontSize: 16,
+              }}
+            >
               {item.name}
             </Text>
             <View
@@ -38,15 +43,14 @@ export default function RoomListing() {
               }}
             >
               <Ionicons name="star" size={14} />
-              <Text>{item.rating}</Text>
+              <Text style={{ fontFamily: "mon-b" }}>{item.rating}</Text>
             </View>
           </View>
 
-          <Text>Capacidad: 4 personas</Text>
+          <Text style={{ fontFamily: "mon-sb" }}>Capacidad: 4 personas</Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text>$150 </Text>
-            <Text>por noche</Text>
+            <Text style={{ fontFamily: "mon-b" }}>$150</Text>
           </View>
         </View>
       </TouchableOpacity>
