@@ -39,6 +39,7 @@ model User {
   reservations    Reservation[]
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+  userRating      UserRating[]
 }
 
 //Una habitacion puede tener diversas reservaciones 
@@ -49,9 +50,21 @@ model Room {
   photoUrl    String?
   description String?
   price       Float
-  state       Boolean
-  date        DateTime
+  state       RoomStatus    @default(AVAILABLE)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   reservation Reservation[]
+  userRating  UserRating[]
+}
+
+model UserRating {
+  id      Int     @id @default(autoincrement())
+  rating  Float
+  comment String?
+  userId  Int
+  roomId  Int
+  room    Room    @relation(fields: [roomId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
 }
 
 model Reservation {
